@@ -14,7 +14,7 @@ app.use(express.json());
 
 // MongoDB Connection
 mongoose
-    .connect('mongodb+srv://uprigt:vipin2006@cluster0.xrnaoz8.mongodb.net/?appName=Cluster0')
+    .connect('mongodb+srv://uprigt:vipin2006@cluster0.xrnaoz8.mongodb.net/salonDB')
     .then(async () => {
         console.log('✅ Connected to MongoDB - salonDB');
 
