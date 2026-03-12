@@ -6,7 +6,7 @@ const Admin = require('./models/Admin');
 const adminRoutes = require('./routes/admin');
 
 const app = express();
-const PORT = 5000;
+
 
 // Middleware
 app.use(cors({
@@ -17,7 +17,7 @@ app.use(express.json());
 
 // MongoDB Connection
 mongoose
-    .connect('mongodb+srv://uprigt:vipin2006@cluster0.xrnaoz8.mongodb.net/salonDB')
+    .connect(process.env.MONGO_URI)
     .then(async () => {
         console.log('✅ Connected to MongoDB - salonDB');
 
@@ -63,6 +63,8 @@ app.post('/api/enquiry', async (req, res) => {
 });
 
 // Start server
+const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+    console.log(`Server running on port ${PORT}`);
+}); 
