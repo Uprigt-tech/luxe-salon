@@ -967,8 +967,8 @@ function PricingSection() {
                   el?.scrollIntoView({ behavior: "smooth" });
                 }}
                 className={`relative z-20 block w-full text-center py-4 rounded-lg font-label text-[11px] tracking-[0.2em] transition-all duration-300 ${plan.featured
-                    ? "bg-gold text-dark hover:bg-gold-light"
-                    : "border border-gold/30 text-gold hover:bg-gold hover:text-dark"
+                  ? "bg-gold text-dark hover:bg-gold-light"
+                  : "border border-gold/30 text-gold hover:bg-gold hover:text-dark"
                   }`}
               >
                 Apply Now
