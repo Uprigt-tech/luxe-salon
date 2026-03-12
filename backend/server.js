@@ -10,10 +10,12 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: true,
-    credentials: true,
+    origin: [
+        "http://localhost:5173",
+        "https://luxe-mens-salon.vercel.app"
+    ],
+    credentials: true
 }));
-app.use(express.json());
 
 // MongoDB Connection
 mongoose
