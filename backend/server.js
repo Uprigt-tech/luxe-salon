@@ -24,8 +24,16 @@ mongoose
         console.log('✅ Connected to MongoDB - salonDB');
 
         // Seed default admin with plain text password
-        await Admin.deleteMany({ username: 'admin' });
-        await Admin.create({ username: 'admin', password: 'admin123' });
+        const adminExists = await Admin.findOne({ username: "admin" });
+
+        if (!adminExists) {
+            await Admin.create({
+                username: "admin",
+                password: "admin123"
+            });
+
+            console.log("Admin created: admin / admin123");
+        }
         console.log('✅ Admin seeded (username: admin, password: admin123)');
     })
     .catch((err) => console.error('❌ MongoDB connection error:', err));
