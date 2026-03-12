@@ -10,6 +10,7 @@ const router = express.Router();
 router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
+        console.log('🔑 Login attempt:', { username });
 
         if (!username || !password) {
             return res.status(400).json({
@@ -21,15 +22,18 @@ router.post('/login', async (req, res) => {
         const admin = await Admin.findOne({ username });
 
         if (!admin) {
+            console.log('❌ Login failed: admin not found');
             return res.status(401).json({
                 success: false,
                 message: 'Invalid username or password.',
             });
         }
 
-        const isMatch = await admin.comparePassword(password);
+        console.log('📋 Found admin, comparing passwords...');
 
-        if (!isMatch) {
+        // Direct string comparison (no bcrypt)
+        if (password !== admin.password) {
+            console.log('❌ Login failed: password mismatch');
             return res.status(401).json({
                 success: false,
                 message: 'Invalid username or password.',
@@ -42,6 +46,7 @@ router.post('/login', async (req, res) => {
             { expiresIn: '24h' }
         );
 
+        console.log('✅ Login successful for:', username);
         res.status(200).json({
             success: true,
             message: 'Login successful',
@@ -74,6 +79,49 @@ router.get('/enquiries', authMiddleware, async (req, res) => {
             message: 'Failed to fetch enquiries.',
             error: error.message,
         });
+    }
+});
+
+// PUT /api/admin/enquiries/:id/contacted - Mark enquiry as contacted
+router.put('/enquiries/:id/contacted', authMiddleware, async (req, res) => {
+    try {
+        const enquiry = await Enquiry.findByIdAndUpdate(
+            req.params.id,
+            { status: 'contacted' },
+            { new: true }
+        );
+
+        if (!enquiry) {
+            return res.status(404).json({ success: false, message: 'Enquiry not found' });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Enquiry marked as contacted',
+            data: enquiry,
+        });
+    } catch (error) {
+        console.error('Error updating enquiry:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// DELETE /api/admin/enquiries/:id - Permanent delete
+router.delete('/enquiries/:id', authMiddleware, async (req, res) => {
+    try {
+        const enquiry = await Enquiry.findByIdAndDelete(req.params.id);
+
+        if (!enquiry) {
+            return res.status(404).json({ success: false, message: 'Enquiry not found' });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Enquiry deleted permanently',
+        });
+    } catch (error) {
+        console.error('Error deleting enquiry:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
     }
 });
 

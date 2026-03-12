@@ -9,7 +9,10 @@ const app = express();
 const PORT = 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: true,
+    credentials: true,
+}));
 app.use(express.json());
 
 // MongoDB Connection
@@ -18,12 +21,10 @@ mongoose
     .then(async () => {
         console.log('✅ Connected to MongoDB - salonDB');
 
-        // Seed default admin if none exists
-        const adminExists = await Admin.findOne({ username: 'admin' });
-        if (!adminExists) {
-            await Admin.create({ username: 'admin', password: 'admin123' });
-            console.log('✅ Default admin created (username: admin)');
-        }
+        // Seed default admin with plain text password
+        await Admin.deleteMany({ username: 'admin' });
+        await Admin.create({ username: 'admin', password: 'admin123' });
+        console.log('✅ Admin seeded (username: admin, password: admin123)');
     })
     .catch((err) => console.error('❌ MongoDB connection error:', err));
 
@@ -33,13 +34,13 @@ app.use('/api/admin', adminRoutes);
 // POST /api/enquiry - Save enquiry data
 app.post('/api/enquiry', async (req, res) => {
     try {
-        const { name, phone, email, pincode, enquiryType, message } = req.body;
+        const { name, phone, email, city, enquiryType, message } = req.body;
 
         const newEnquiry = new Enquiry({
             name,
             phone,
             email,
-            pincode,
+            city,
             enquiryType,
             message,
         });

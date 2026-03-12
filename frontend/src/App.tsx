@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
@@ -21,8 +22,16 @@ import {
   Star,
   Check,
   TrendingUp,
-  Award
+  Award,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react'
+import AdminLogin from './components/AdminLogin'
+import AdminLayout from './components/AdminLayout'
+import AdminDashboard from './components/AdminDashboard'
+import AdminContacted from './components/AdminContacted'
+import AdminTickets from './components/AdminTickets'
+import ProtectedRoute from './components/ProtectedRoute'
 import './App.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -44,13 +53,18 @@ function Navigation() {
     { name: 'Services', href: '#services' },
     { name: 'Franchise', href: '#franchise' },
     { name: 'Investment', href: '#pricing' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Contact', href: '#enquiry-form' },
   ]
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+    const el = document.querySelector(href) as HTMLElement | null;
+    if (el) {
+      const offset = 80;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = el.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
     }
     setIsMobileMenuOpen(false)
   }
@@ -85,7 +99,7 @@ function Navigation() {
               </button>
             ))}
             <button
-              onClick={() => scrollToSection('#contact')}
+              onClick={() => scrollToSection('#enquiry-form')}
               className="btn-luxury text-[10px] py-3 px-6"
             >
               Book Now
@@ -116,7 +130,7 @@ function Navigation() {
             </button>
           ))}
           <button
-            onClick={() => scrollToSection('#contact')}
+            onClick={() => scrollToSection('#enquiry-form')}
             className="btn-luxury mt-8"
           >
             Book Now
@@ -253,13 +267,39 @@ function HeroSection() {
               </div>
 
               <div ref={ctaRef} className="flex flex-wrap gap-4">
-                <a href="#locator" className="btn-luxury group flex items-center gap-3">
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('enquiry-form');
+                    if (el) {
+                      const offset = 80;
+                      const bodyRect = document.body.getBoundingClientRect().top;
+                      const elementRect = el.getBoundingClientRect().top;
+                      const elementPosition = elementRect - bodyRect;
+                      const offsetPosition = elementPosition - offset;
+                      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    }
+                  }}
+                  className="btn-luxury group flex items-center gap-3"
+                >
                   Book a Visit
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </a>
-                <a href="#franchise" className="btn-outline-luxury">
+                </button>
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('enquiry-form');
+                    if (el) {
+                      const offset = 80;
+                      const bodyRect = document.body.getBoundingClientRect().top;
+                      const elementRect = el.getBoundingClientRect().top;
+                      const elementPosition = elementRect - bodyRect;
+                      const offsetPosition = elementPosition - offset;
+                      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    }
+                  }}
+                  className="btn-outline-luxury"
+                >
                   Own a Franchise
-                </a>
+                </button>
               </div>
 
               <div className="flex gap-12 mt-16 pt-8 border-t border-white/10">
@@ -654,11 +694,6 @@ function ServicesSection() {
               <p className="text-white/50 text-sm leading-relaxed mb-6">
                 {service.description}
               </p>
-
-              <div className="flex items-center gap-2 text-gold opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="font-label text-[10px] tracking-[0.15em]">LEARN MORE</span>
-                <ArrowRight className="w-4 h-4" />
-              </div>
             </div>
           ))}
         </div>
@@ -926,15 +961,18 @@ function PricingSection() {
                 </div>
               </div>
 
-              <a
-                href="#contact"
-                className={`block text-center py-4 rounded-lg font-label text-[11px] tracking-[0.2em] transition-all duration-300 ${plan.featured
-                  ? 'bg-gold text-dark hover:bg-gold-light hover:shadow-lg hover:shadow-gold/30'
-                  : 'border border-gold/30 text-gold hover:bg-gold hover:text-dark'
+              <button
+                onClick={() => {
+                  const el = document.getElementById("enquiry-form");
+                  el?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className={`relative z-20 block w-full text-center py-4 rounded-lg font-label text-[11px] tracking-[0.2em] transition-all duration-300 ${plan.featured
+                    ? "bg-gold text-dark hover:bg-gold-light"
+                    : "border border-gold/30 text-gold hover:bg-gold hover:text-dark"
                   }`}
               >
                 Apply Now
-              </a>
+              </button>
             </div>
           ))}
         </div>
@@ -946,6 +984,43 @@ function PricingSection() {
 // Testimonials Section
 function TestimonialsSection() {
   const sectionRef = useRef<HTMLElement>(null)
+
+  const testimonials = [
+    {
+      name: "Rahul Mehta",
+      role: "Franchisee, Pune",
+      text: "The systems are clear, the brand is strong, and the support team actually shows up. Best decision I made for my entrepreneurial journey.",
+      initial: "R"
+    },
+    {
+      name: "Sanjay Kumar",
+      role: "Franchisee, Delhi",
+      text: "I was skeptical at first, but the ROI speaks for itself. The premium branding attracts exactly the clientele they promised.",
+      initial: "S"
+    },
+    {
+      name: "Aditya Singh",
+      role: "Customer, Mumbai",
+      text: "Finally a salon that understands men's grooming. The signature grooming session is exactly what I need before important meetings.",
+      initial: "A"
+    },
+    {
+      name: "Vikram Desai",
+      role: "Franchisee, Bangalore",
+      text: "The training provided to our staff is unmatched. It ensures every customer gets the same Luxe experience every time.",
+      initial: "V"
+    }
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextTestimonial = () => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -1011,30 +1086,44 @@ function TestimonialsSection() {
               <span className="text-gradient-gold">PARTNERS</span>
             </h2>
 
-            <div className="reveal-item glass-card rounded-2xl p-8 mb-8">
-              <div className="flex gap-1 mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-gold fill-gold" />
-                ))}
-              </div>
-              <p className="text-white/80 text-lg leading-relaxed mb-6 italic">
-                "The systems are clear, the brand is strong, and the support team actually shows up. Best decision I made for my entrepreneurial journey."
-              </p>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center">
-                  <span className="font-display text-gold text-lg">R</span>
-                </div>
+            <div className="reveal-item relative">
+              <div className="glass-card rounded-2xl p-8 mb-8 min-h-[250px] flex flex-col justify-between">
                 <div>
-                  <p className="text-white font-medium">Rahul Mehta</p>
-                  <p className="text-white/40 text-sm">Franchisee, Pune</p>
+                  <div className="flex gap-1 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 text-gold fill-gold" />
+                    ))}
+                  </div>
+                  <p className="text-white/80 text-lg leading-relaxed mb-6 italic transition-all duration-300">
+                    "{testimonials[currentIndex].text}"
+                  </p>
                 </div>
+                <div className="flex items-center gap-4 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center">
+                    <span className="font-display text-gold text-lg">{testimonials[currentIndex].initial}</span>
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">{testimonials[currentIndex].name}</p>
+                    <p className="text-white/40 text-sm">{testimonials[currentIndex].role}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <button
+                  onClick={prevTestimonial}
+                  className="w-12 h-12 rounded-full border border-gold/30 flex items-center justify-center text-gold hover:bg-gold hover:text-dark transition-all"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={nextTestimonial}
+                  className="w-12 h-12 rounded-full border border-gold/30 flex items-center justify-center text-gold hover:bg-gold hover:text-dark transition-all"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
               </div>
             </div>
-
-            <a href="#contact" className="reveal-item btn-outline-luxury inline-flex items-center gap-3">
-              Read More Stories
-              <ArrowRight className="w-4 h-4" />
-            </a>
           </div>
         </div>
       </div>
@@ -1047,23 +1136,28 @@ function BlogSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const cardsRef = useRef<HTMLDivElement>(null)
 
+  const [selectedBlog, setSelectedBlog] = useState<{ title: string, content: string, date: string, image: string } | null>(null)
+
   const blogs = [
     {
       image: '/blog-1.jpg',
       title: "The Modern Gentleman's Haircare Routine",
       excerpt: 'Discover the essential steps to maintain healthy, stylish hair every day.',
+      content: "Haircare is not just about washing it and rushing out the door. The modern gentleman knows that a dedicated routine is the foundation of an impeccable looking style. Begin with a quality shampoo suitable for your scalp condition... [Full article content loaded here].",
       date: 'Jan 15, 2026'
     },
     {
       image: '/blog-2.jpg',
       title: 'How to Choose Your First Salon Location',
       excerpt: 'Key factors to consider when selecting the perfect spot for your franchise.',
+      content: "Location matters more than anything in the salon business. Your first step should be analyzing the demographic of the neighborhood. Does it match our target upscale clientele? Consider foot traffic, visibility, and neighboring businesses... [Full article content loaded here].",
       date: 'Jan 10, 2026'
     },
     {
       image: '/blog-3.jpg',
       title: 'Behind the Brand: Crafting the Experience',
       excerpt: 'The story behind Luxe Men Salon and our commitment to excellence.',
+      content: "Luxe Men Salon started with a simple vision: to bring back the lost art of men's grooming in an upscale, comfortable environment. From the choice of our leather chairs to the specific blend of our beard oils, every detail has been meticulously chosen... [Full article content loaded here].",
       date: 'Jan 5, 2026'
     },
   ]
@@ -1118,10 +1212,6 @@ function BlogSection() {
               Latest <span className="text-gradient-gold">Insights</span>
             </h2>
           </div>
-          <a href="#" className="btn-outline-luxury mt-6 lg:mt-0 inline-flex items-center gap-3">
-            View All Articles
-            <ArrowRight className="w-4 h-4" />
-          </a>
         </div>
 
         <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -1129,8 +1219,9 @@ function BlogSection() {
             <article
               key={index}
               className="blog-card group cursor-pointer"
+              onClick={() => setSelectedBlog(blog)}
             >
-              <div className="glass-card rounded-2xl overflow-hidden">
+              <div className="glass-card rounded-2xl overflow-hidden h-full flex flex-col">
                 <div className="aspect-video overflow-hidden">
                   <img
                     src={blog.image}
@@ -1138,15 +1229,15 @@ function BlogSection() {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                 </div>
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-1">
                   <p className="font-label text-[10px] tracking-[0.15em] text-gold mb-3">{blog.date}</p>
                   <h3 className="font-display text-xl text-white mb-3 group-hover:text-gold transition-colors line-clamp-2">
                     {blog.title}
                   </h3>
-                  <p className="text-white/50 text-sm leading-relaxed mb-4 line-clamp-2">
+                  <p className="text-white/50 text-sm leading-relaxed mb-4 line-clamp-2 flex-grow">
                     {blog.excerpt}
                   </p>
-                  <span className="inline-flex items-center text-gold text-sm font-label tracking-wider group-hover:gap-3 gap-2 transition-all">
+                  <span className="inline-flex items-center text-gold text-sm font-label tracking-wider group-hover:gap-3 gap-2 transition-all mt-auto">
                     READ MORE <ArrowRight className="w-4 h-4" />
                   </span>
                 </div>
@@ -1155,6 +1246,32 @@ function BlogSection() {
           ))}
         </div>
       </div>
+
+      {/* Article Modal */}
+      {selectedBlog && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" style={{ backgroundColor: 'rgba(0,0,0,0.8)' }}>
+          <div
+            className="bg-dark border border-gold/20 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto relative animate-in fade-in zoom-in duration-300"
+          >
+            <button
+              onClick={() => setSelectedBlog(null)}
+              className="absolute top-4 right-4 w-10 h-10 bg-black/50 hover:bg-gold hover:text-dark rounded-full flex items-center justify-center text-white transition-colors z-10"
+            >
+              <X size={20} />
+            </button>
+            <img src={selectedBlog.image} alt={selectedBlog.title} className="w-full h-64 sm:h-80 object-cover" />
+            <div className="p-8 sm:p-12">
+              <p className="font-label text-[10px] tracking-[0.2em] text-gold mb-4">{selectedBlog.date}</p>
+              <h2 className="font-display text-3xl sm:text-4xl text-white mb-8">{selectedBlog.title}</h2>
+              <div className="text-white/70 leading-relaxed space-y-4">
+                {selectedBlog.content.split('\n\n').map((paragraph, i) => (
+                  <p key={i}>{paragraph}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
@@ -1166,7 +1283,7 @@ function ContactSection() {
     name: '',
     phone: '',
     email: '',
-    pincode: '',
+    city: '',
     enquiryType: '',
     message: '',
   })
@@ -1220,7 +1337,7 @@ function ContactSection() {
     setSubmitStatus('idle')
 
     try {
-      const response = await fetch('https://luxe-salon-plvh.onrender.com/api/enquiry', {
+      const response = await fetch('http://localhost:5000/api/enquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -1231,7 +1348,7 @@ function ContactSection() {
       if (response.ok && data.success) {
         setSubmitStatus('success')
         setStatusMessage('Thank you! Your enquiry has been submitted successfully. We will contact you soon.')
-        setFormData({ name: '', phone: '', email: '', pincode: '', enquiryType: '', message: '' })
+        setFormData({ name: '', phone: '', email: '', city: '', enquiryType: '', message: '' })
       } else {
         setSubmitStatus('error')
         setStatusMessage(data.message || 'Something went wrong. Please try again.')
@@ -1251,7 +1368,7 @@ function ContactSection() {
   ]
 
   return (
-    <section id="contact" ref={sectionRef} className="relative py-32 lg:py-40 bg-dark overflow-hidden">
+    <section id="enquiry-form" ref={sectionRef} className="relative py-32 lg:py-40 bg-dark overflow-hidden">
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-gold/5 to-transparent pointer-events-none" />
 
       <div className="relative z-10 w-full px-6 lg:px-16">
@@ -1347,15 +1464,15 @@ function ContactSection() {
                   />
                 </div>
                 <div>
-                  <label className="block font-label text-[10px] tracking-[0.2em] text-white/40 mb-2">PINCODE</label>
+                  <label className="block font-label text-[10px] tracking-[0.2em] text-white/40 mb-2">CITY</label>
                   <input
                     type="text"
-                    name="pincode"
-                    value={formData.pincode}
+                    name="city"
+                    value={formData.city}
                     onChange={handleChange}
                     required
                     className="w-full bg-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-gold focus:outline-none transition-colors"
-                    placeholder="Your pincode"
+                    placeholder="Your city"
                   />
                 </div>
               </div>
@@ -1409,7 +1526,7 @@ function Footer() {
     { name: 'Services', href: '#services' },
     { name: 'Franchising', href: '#franchise' },
     { name: 'Investment', href: '#pricing' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Contact', href: '#enquiry-form' },
   ]
 
   const socialLinks = [
@@ -1471,21 +1588,6 @@ function Footer() {
               <li className="text-white/50 text-sm">Mumbai, India</li>
             </ul>
           </div>
-
-          <div>
-            <h4 className="font-label text-[11px] tracking-[0.2em] text-gold mb-6">NEWSLETTER</h4>
-            <p className="text-white/50 text-sm mb-4">Subscribe for grooming tips and franchise updates.</p>
-            <div className="flex">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 bg-dark/50 border border-white/10 rounded-l-lg px-4 py-3 text-white text-sm focus:border-gold focus:outline-none transition-colors"
-              />
-              <button className="bg-gold text-dark px-4 rounded-r-lg hover:bg-gold-light transition-colors">
-                <ArrowRight className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
         </div>
 
         <div className="pt-8 border-t border-white/5">
@@ -1496,7 +1598,6 @@ function Footer() {
             <div className="flex gap-6 items-center">
               <a href="#" className="text-white/30 text-sm hover:text-gold transition-colors">Privacy Policy</a>
               <a href="#" className="text-white/30 text-sm hover:text-gold transition-colors">Terms of Service</a>
-              <a href="/admin-login.html" className="text-white/30 hover:opacity-80 transition-opacity" style={{ fontSize: '12px', opacity: 0.3, textDecoration: 'none' }}>Admin</a>
             </div>
           </div>
         </div>
@@ -1525,26 +1626,13 @@ function WhatsAppButton() {
   )
 }
 
-// Main App Component
-function App() {
+// Main Site Wrapper
+function MainSite() {
   useEffect(() => {
     const timer = setTimeout(() => {
       ScrollTrigger.refresh()
     }, 100)
-
     return () => clearTimeout(timer)
-  }, [])
-
-  // Admin panel keyboard shortcut: Ctrl + Shift + A
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-        window.location.href = '/admin-login.html'
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
   return (
@@ -1565,6 +1653,26 @@ function App() {
       </main>
       <WhatsAppButton />
     </div>
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainSite />} />
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="contacted" element={<AdminContacted />} />
+          <Route path="tickets" element={<AdminTickets />} />
+        </Route>
+        {/* Redirects */}
+        <Route path="/admin-login.html" element={<Navigate to="/admin" replace />} />
+        <Route path="/admin-dashboard.html" element={<Navigate to="/admin/dashboard" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

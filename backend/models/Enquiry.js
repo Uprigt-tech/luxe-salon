@@ -13,7 +13,7 @@ const enquirySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  pincode: {
+  city: {
     type: String,
     required: true,
   },
@@ -23,6 +23,11 @@ const enquirySchema = new mongoose.Schema({
   },
   message: {
     type: String,
+  },
+  status: {
+    type: String,
+    enum: ['pending', 'contacted'],
+    default: 'pending',
   },
   createdAt: {
     type: Date,
