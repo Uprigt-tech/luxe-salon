@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../config';
 
 const AdminLogin: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -14,7 +15,7 @@ const AdminLogin: React.FC = () => {
         setError('');
 
         try {
-            const response = await fetch("http://localhost:5000/api/admin/login", {
+            const response = await fetch(`${API_BASE_URL}/admin/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -24,15 +25,19 @@ const AdminLogin: React.FC = () => {
 
             const data = await response.json();
 
-            if (response.ok) {
+            if (response.ok && data.success) {
                 localStorage.setItem("adminToken", data.token);
+                // Use navigate for SPA routing
                 navigate("/admin/dashboard");
             } else {
-                setError("Invalid username or password");
+                const errorMsg = data.message || "Invalid username or password";
+                console.error('Login failed:', data);
+                setError(errorMsg);
             }
         } catch (error) {
-            console.error(error);
-            setError("Server error");
+            console.error('Network error during login:', error);
+            const serverError = "Server error: Unable to connect to the backend.";
+            setError(serverError);
         } finally {
             setLoading(false);
         }

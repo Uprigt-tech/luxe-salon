@@ -4,6 +4,7 @@ import {
     PieChart, Pie, Cell, Legend
 } from 'recharts';
 import { RefreshCcw, Search } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const COLORS = ['#c8a55a', '#b8943f', '#4a4a4a', '#2a2a2a'];
 
@@ -28,7 +29,7 @@ const AdminDashboard: React.FC = () => {
         setLoading(true);
         const token = localStorage.getItem('adminToken');
         try {
-            const response = await fetch('http://localhost:5000/api/admin/enquiries', {
+            const response = await fetch(`${API_BASE_URL}/admin/enquiries`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await response.json();
@@ -49,7 +50,7 @@ const AdminDashboard: React.FC = () => {
     const handleAction = async (id: string, action: 'contacted' | 'delete') => {
         const token = localStorage.getItem('adminToken');
         const method = action === 'contacted' ? 'PUT' : 'DELETE';
-        const url = `http://localhost:5000/api/admin/enquiries/${id}${action === 'contacted' ? '/contacted' : ''}`;
+        const url = `${API_BASE_URL}/admin/enquiries/${id}${action === 'contacted' ? '/contacted' : ''}`;
 
         if (action === 'delete' && !confirm('Are you sure you want to delete this?')) return;
 
@@ -61,10 +62,11 @@ const AdminDashboard: React.FC = () => {
             if (response.ok) {
                 fetchEnquiries();
             } else {
-                alert(`Failed to ${action}`);
+                const data = await response.json();
+                alert(data.message || `Failed to ${action}`);
             }
         } catch (err) {
-            alert('Server error');
+            alert('Server error: Could not complete the request.');
         }
     };
 

@@ -32,6 +32,7 @@ import AdminDashboard from './components/AdminDashboard'
 import AdminContacted from './components/AdminContacted'
 import AdminTickets from './components/AdminTickets'
 import ProtectedRoute from './components/ProtectedRoute'
+import { API_BASE_URL } from './config'
 import './App.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -1337,7 +1338,7 @@ function ContactSection() {
     setSubmitStatus('idle')
 
     try {
-      const response = await fetch('http://localhost:5000/api/enquiry', {
+      const response = await fetch(`${API_BASE_URL}/enquiry`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -1347,13 +1348,15 @@ function ContactSection() {
 
       if (response.ok && data.success) {
         setSubmitStatus('success')
-        setStatusMessage('Thank you! Your enquiry has been submitted successfully. We will contact you soon.')
+        setStatusMessage(data.message || 'Thank you! Your enquiry has been submitted successfully. We will contact you soon.')
         setFormData({ name: '', phone: '', email: '', city: '', enquiryType: '', message: '' })
       } else {
+        console.error('Submission failed:', data)
         setSubmitStatus('error')
         setStatusMessage(data.message || 'Something went wrong. Please try again.')
       }
-    } catch {
+    } catch (error) {
+      console.error('Network error while submitting enquiry:', error)
       setSubmitStatus('error')
       setStatusMessage('Unable to connect to server. Please try again later.')
     } finally {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { RefreshCcw, Search } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 interface Enquiry {
     _id: string;
@@ -21,7 +22,7 @@ const AdminContacted: React.FC = () => {
         setLoading(true);
         const token = localStorage.getItem('adminToken');
         try {
-            const response = await fetch('http://localhost:5000/api/admin/enquiries', {
+            const response = await fetch(`${API_BASE_URL}/admin/enquiries`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await response.json();
@@ -43,13 +44,18 @@ const AdminContacted: React.FC = () => {
         if (!confirm('Are you sure?')) return;
         const token = localStorage.getItem('adminToken');
         try {
-            const response = await fetch(`http://localhost:5000/api/admin/enquiries/${id}`, {
+            const response = await fetch(`${API_BASE_URL}/admin/enquiries/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
-            if (response.ok) fetchEnquiries();
+            if (response.ok) {
+                fetchEnquiries();
+            } else {
+                const data = await response.json();
+                alert(data.message || 'Error deleting');
+            }
         } catch (err) {
-            alert('Error deleting');
+            alert('Server error: Could not delete enquiry.');
         }
     };
 

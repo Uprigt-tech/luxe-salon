@@ -6,6 +6,11 @@ const { JWT_SECRET, authMiddleware } = require('../middleware/auth');
 
 const router = express.Router();
 
+// GET /api/admin/health
+router.get('/health', (req, res) => {
+    res.status(200).json({ success: true, message: 'Admin API is healthy' });
+});
+
 // POST /api/admin/login
 router.post('/login', async (req, res) => {
     try {
@@ -25,7 +30,7 @@ router.post('/login', async (req, res) => {
             console.log('❌ Login failed: admin not found');
             return res.status(401).json({
                 success: false,
-                message: 'Invalid username or password.',
+                message: 'Invalid username or password',
             });
         }
 
@@ -36,7 +41,7 @@ router.post('/login', async (req, res) => {
             console.log('❌ Login failed: password mismatch');
             return res.status(401).json({
                 success: false,
-                message: 'Invalid username or password.',
+                message: 'Invalid username or password',
             });
         }
 
@@ -49,8 +54,8 @@ router.post('/login', async (req, res) => {
         console.log('✅ Login successful for:', username);
         res.status(200).json({
             success: true,
-            message: 'Login successful',
-            token,
+            message: "Login successful",
+            token: token
         });
     } catch (error) {
         console.error('Login error:', error);
