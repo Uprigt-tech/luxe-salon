@@ -4,8 +4,9 @@ const jwt = require('jsonwebtoken');
 const http = require('http');
 require('dotenv').config();
 
-const JWT_SECRET = 'luxe-salon-secret-key-2026';
-const BACKEND_URL = 'http://localhost:5000';
+const JWT_SECRET = process.env.JWT_SECRET || 'luxe-salon-secret-key-2026';
+const PORT = process.env.PORT || 5000;
+const BACKEND_URL = `http://localhost:${PORT}`;
 
 async function runSelfTest() {
     console.log('🚀 --- LUXE MEN SALON SELF-TEST --- 🚀');
@@ -38,7 +39,8 @@ async function runSelfTest() {
     // 2. Verify MongoDB Connection
     console.log('\nStep 2: Checking MongoDB Connection...');
     try {
-        await mongoose.connect(process.env.MONGO_URI);
+        const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/salonDB';
+        await mongoose.connect(mongoUri);
         console.log('✅ MongoDB connected successfully.');
     } catch (err) {
         console.error('❌ MongoDB connection failed: ' + err.message);

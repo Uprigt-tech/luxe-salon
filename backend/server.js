@@ -15,11 +15,16 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Middleware
+const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ["http://localhost:5173", "https://luxe-mens-salon.vercel.app"];
+
 app.use(cors({
-    origin: [
-        "http://localhost:5173",
-        "https://luxe-mens-salon.vercel.app"
-    ],
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }));
 
@@ -40,7 +45,7 @@ mongoose
 
             console.log("Admin created: admin / admin123");
         }
-        console.log('✅ Admin seeded (username: admin, password: admin123)');
+        console.log('✅ Admin user verified');
     })
     .catch((err) => console.error('❌ MongoDB connection error:', err));
 
