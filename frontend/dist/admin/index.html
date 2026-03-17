@@ -314,13 +314,16 @@
       const password = document.querySelector('input[placeholder="Enter password"]').value;
 
       try {
-        const response = await fetch("http://localhost:5000/api/admin/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ username, password })
-        });
+        const response = await fetch(
+          "https://luxe-salon-1-4vh4.onrender.com",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username, password })
+          }
+        );
 
         const data = await response.json();
 

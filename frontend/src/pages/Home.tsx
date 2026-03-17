@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight, Star, Check, ChevronLeft, ChevronRight } from 'lucide-react'
+import { X } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger)
 
