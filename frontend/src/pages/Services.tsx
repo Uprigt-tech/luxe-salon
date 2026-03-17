@@ -1,12 +1,14 @@
 import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useNavigate } from 'react-router-dom'
 import { Scissors, User, Sparkles, Flame, Hand, ArrowRight, Check, Star } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
 // Signature Grooming Section
 function SignatureGroomingSection() {
+  const navigate = useNavigate()
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -102,7 +104,7 @@ function SignatureGroomingSection() {
             </div>
 
             <button
-              onClick={() => window.location.href = '/contact'}
+              onClick={() => navigate('/contact')}
               className="reveal-item btn-luxury inline-flex items-center gap-3"
             >
               Order Service
@@ -244,7 +246,6 @@ function ServicesSection() {
 // Services Page Component
 export default function Services() {
   useEffect(() => {
-    window.scrollTo(0, 0)
     ScrollTrigger.refresh()
   }, [])
 

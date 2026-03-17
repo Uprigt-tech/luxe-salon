@@ -255,7 +255,6 @@ function ContactSection() {
 // Contact Page Component
 export default function Contact() {
   useEffect(() => {
-    window.scrollTo(0, 0)
     ScrollTrigger.refresh()
   }, [])
 

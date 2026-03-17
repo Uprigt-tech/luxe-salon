@@ -1,13 +1,14 @@
 import { useRef, useEffect, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowRight, Star, Check, ChevronLeft, ChevronRight } from 'lucide-react'
-import { X } from "lucide-react";
+import { useNavigate } from 'react-router-dom'
+import { ArrowRight, Star, Check, ChevronLeft, ChevronRight, X } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
 // Hero Section
 function HeroSection() {
+  const navigate = useNavigate()
   const sectionRef = useRef<HTMLElement>(null)
   const headlineRef = useRef<HTMLDivElement>(null)
   const subtextRef = useRef<HTMLDivElement>(null)
@@ -133,14 +134,14 @@ function HeroSection() {
 
               <div ref={ctaRef} className="flex flex-wrap gap-4">
                 <button
-                  onClick={() => window.location.href = '/contact'}
+                  onClick={() => navigate('/contact')}
                   className="btn-luxury group flex items-center gap-3"
                 >
                   Book a Visit
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
                 <button
-                  onClick={() => window.location.href = '/franchise'}
+                  onClick={() => navigate('/franchise')}
                   className="btn-outline-luxury"
                 >
                   Own a Franchise
@@ -610,7 +611,6 @@ function BlogSection() {
 // Home Page Component
 export default function Home() {
   useEffect(() => {
-    window.scrollTo(0, 0)
     ScrollTrigger.refresh()
   }, [])
 

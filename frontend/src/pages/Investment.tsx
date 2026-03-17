@@ -1,12 +1,14 @@
 import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useNavigate } from 'react-router-dom'
 import { MapPin, Users } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
 // Pricing Section
 function PricingSection() {
+  const navigate = useNavigate()
   const sectionRef = useRef<HTMLElement>(null)
   const cardsRef = useRef<HTMLDivElement>(null)
 
@@ -159,7 +161,7 @@ function PricingSection() {
               </div>
 
               <button
-                onClick={() => window.location.href = '/contact'}
+                onClick={() => navigate('/contact')}
                 className={`relative z-20 block w-full text-center py-4 rounded-lg font-label text-[11px] tracking-[0.2em] transition-all duration-300 ${plan.featured
                   ? "bg-gold text-dark hover:bg-gold-light"
                   : "border border-gold/30 text-gold hover:bg-gold hover:text-dark"
@@ -178,7 +180,6 @@ function PricingSection() {
 // Investment Page Component
 export default function Investment() {
   useEffect(() => {
-    window.scrollTo(0, 0)
     ScrollTrigger.refresh()
   }, [])
 

@@ -12,7 +12,9 @@ import Contact from './pages/Contact'
 
 // Components
 import MainLayout from './components/MainLayout'
+import ScrollToTop from './components/ScrollToTop'
 import AdminLogin from './components/AdminLogin'
+  
 import AdminLayout from './components/AdminLayout'
 import AdminDashboard from './components/AdminDashboard'
 import AdminContacted from './components/AdminContacted'
@@ -34,6 +36,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         {/* Public Routes with MainLayout */}
         <Route element={<MainLayout />}>

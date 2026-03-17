@@ -1,12 +1,14 @@
 import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useNavigate } from 'react-router-dom'
 import { TrendingUp, Award, Users, ArrowRight } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
 // Franchise Section
 function FranchiseSection() {
+  const navigate = useNavigate()
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -100,10 +102,13 @@ function FranchiseSection() {
               ))}
             </div>
 
-            <a href="/pricing" className="reveal-item btn-luxury inline-flex items-center gap-3">
+            <button 
+              onClick={() => navigate('/pricing')}
+              className="reveal-item btn-luxury inline-flex items-center gap-3"
+            >
               Explore Investment
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -114,7 +119,6 @@ function FranchiseSection() {
 // Franchise Page Component
 export default function Franchise() {
   useEffect(() => {
-    window.scrollTo(0, 0)
     ScrollTrigger.refresh()
   }, [])
 
