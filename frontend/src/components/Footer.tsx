@@ -20,7 +20,7 @@ export default function Footer() {
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
 
       <div className="w-full px-6 lg:px-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center">
@@ -69,7 +69,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-2">
             <h4 className="font-label text-[11px] tracking-[0.2em] text-gold mb-6">LOCATION</h4>
             <div className="relative w-full h-[350px] rounded-xl overflow-hidden border border-gold/20 shadow-2xl group transition-all duration-500 hover:border-gold/40">
               <iframe 
