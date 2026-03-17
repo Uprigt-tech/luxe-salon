@@ -76,11 +76,11 @@ export default function Footer() {
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d981.9390911440594!2d77.545548!3d10.119018!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b076903f8e8fe2b%3A0x9666c7361ae99594!2sLuxe%20Men%20Salon!5e0!3m2!1sen!2sin!4v1773723960542!5m2!1sen!2sin" 
                 width="100%" 
                 height="100%" 
-                style={{ border: 0, filter: 'grayscale(1) invert(0.9) contrast(1.2)' }} 
+                style={{ border: 0 }} 
                 allowFullScreen={true} 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
-                className="opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                className="w-full h-full"
               />
               <div className="absolute inset-0 pointer-events-none border border-gold/10 rounded-xl" />
             </div>
