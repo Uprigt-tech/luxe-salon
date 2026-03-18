@@ -321,26 +321,26 @@ function TestimonialsSection() {
 
   const testimonials = [
     {
-      name: "Rahul Mehta",
-      role: "Franchisee, Pune",
+      name: "Rahul",
+      role: "Franchisee, Bangalore",
       text: "The systems are clear, the brand is strong, and the support team actually shows up. Best decision I made for my entrepreneurial journey.",
       initial: "R"
     },
     {
       name: "Sanjay Kumar",
-      role: "Franchisee, Delhi",
+      role: "Franchisee, Chennai",
       text: "I was skeptical at first, but the ROI speaks for itself. The premium branding attracts exactly the clientele they promised.",
       initial: "S"
     },
     {
-      name: "Aditya Singh",
-      role: "Customer, Mumbai",
+      name: "Aditya",
+      role: "Customer, Coimbatore",
       text: "Finally a salon that understands men's grooming. The signature grooming session is exactly what I need before important meetings.",
       initial: "A"
     },
     {
-      name: "Vikram Desai",
-      role: "Franchisee, Bangalore",
+      name: "Vikram",
+      role: "Franchisee, Madurai",
       text: "The training provided to our staff is unmatched. It ensures every customer gets the same Luxe experience every time.",
       initial: "V"
     }

@@ -10,9 +10,9 @@ export default function Footer() {
   ]
 
   const socialLinks = [
-    { icon: Instagram, href: '#' },
-    { icon: Facebook, href: '#' },
-    { icon: Youtube, href: '#' },
+    { icon: Instagram, href: 'https://www.instagram.com/luxesalonz?igsh=MWtiMmZ2d2Y3OWV0cw%3D%3D&utm_source=qr' },
+    { icon: Facebook, href: 'https://www.facebook.com/luxesalonz/' },
+    { icon: Youtube, href: 'https://www.youtube.com/@luxesalonz' },
   ]
 
   return (
@@ -63,7 +63,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="text-white/50 text-sm">luxemensalon60@gmail.com</li>
               <li className="text-white/50 text-sm">+91 96264 58516</li>
-              <li className="text-white/50 text-sm">Periyakulam, Theni, India</li>
+              <li className="text-white/50 text-sm">Coimbatore &middot; Chennai &middot; Bangalore</li>
             </ul>
           </div>
 

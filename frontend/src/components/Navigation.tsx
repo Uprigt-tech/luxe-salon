@@ -36,7 +36,7 @@ export default function Navigation() {
           <Link to="/" className="group flex items-center gap-3">
             <img src="/logo.png" alt="Luxe Men Salon" className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
             <span className="font-label text-sm tracking-[0.2em] text-white group-hover:text-gold transition-colors">
-              LUXE MEN
+              LUXE MEN'S SALON
             </span>
           </Link>
 
@@ -45,14 +45,12 @@ export default function Navigation() {
               <Link
                 key={link.name}
                 to={link.href}
-                className={`relative font-label text-[11px] tracking-[0.2em] transition-colors duration-300 py-2 group ${
-                  isActive(link.href) ? 'text-gold' : 'text-white/60 hover:text-gold'
-                }`}
+                className={`relative font-label text-[11px] tracking-[0.2em] transition-colors duration-300 py-2 group ${isActive(link.href) ? 'text-gold' : 'text-white/60 hover:text-gold'
+                  }`}
               >
                 {link.name}
-                <span className={`absolute bottom-0 left-0 h-[1px] bg-gold transition-all duration-300 ${
-                  isActive(link.href) ? 'w-full' : 'w-0 group-hover:w-full'
-                }`} />
+                <span className={`absolute bottom-0 left-0 h-[1px] bg-gold transition-all duration-300 ${isActive(link.href) ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`} />
               </Link>
             ))}
             <Link
@@ -82,9 +80,8 @@ export default function Navigation() {
               key={link.name}
               to={link.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className={`font-label text-2xl tracking-[0.15em] transition-colors duration-300 ${
-                isActive(link.href) ? 'text-gold' : 'text-white hover:text-gold'
-              }`}
+              className={`font-label text-2xl tracking-[0.15em] transition-colors duration-300 ${isActive(link.href) ? 'text-gold' : 'text-white hover:text-gold'
+                }`}
             >
               {link.name}
             </Link>

@@ -94,9 +94,9 @@ function ContactSection() {
   }
 
   const contactInfo = [
-    { icon: Mail, label: 'Email', value: 'hello@luxemensalon.in' },
-    { icon: Phone, label: 'Phone', value: '+91 98765 43210' },
-    { icon: MapPin, label: 'Locations', value: 'Mumbai • Delhi • Bangalore' },
+    { icon: Mail, label: 'Email', value: 'luxemensalon60@gmail.com' },
+    { icon: Phone, label: 'Phone', value: '+91 96264 58516' },
+    { icon: MapPin, label: 'Locations', value: 'Coimbatore • Chennai • Bangalore' },
   ]
 
   return (
@@ -123,7 +123,7 @@ function ContactSection() {
               {contactInfo.map((item, i) => (
                 <div key={i} className="flex items-center gap-4">
                   <div className="w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center">
-                   <item.icon className="w-6 h-6 text-gold" />
+                    <item.icon className="w-6 h-6 text-gold" />
                   </div>
                   <div>
                     <p className="font-label text-[10px] tracking-[0.2em] text-white/40 mb-1">{item.label}</p>
@@ -133,7 +133,7 @@ function ContactSection() {
               ))}
             </div>
 
-            <a href="tel:+919876543210" className="btn-luxury inline-flex items-center gap-3">
+            <a href="tel:+919626458516" className="btn-luxury inline-flex items-center gap-3">
               Schedule a Call
               <ArrowRight className="w-4 h-4" />
             </a>

@@ -16,10 +16,10 @@ const AdminLayout: React.FC = () => {
                 <div className="flex items-center gap-3.5">
                     <img src="/logo.png" alt="Luxe Men Salon" className="h-9 w-auto object-contain" />
                     <span className="font-display text-sm font-medium text-white/70 tracking-wider">
-                        <strong className="text-white font-semibold uppercase">Luxe Men</strong> · Admin
+                        <strong className="text-white font-semibold uppercase">Luxe Men's Salon</strong> · Admin
                     </span>
                 </div>
-                <button 
+                <button
                     onClick={handleLogout}
                     className="px-5 py-2.5 bg-transparent border border-white/10 rounded-lg font-display text-[11px] font-medium tracking-[0.15em] uppercase text-white/50 hover:border-red-500/40 hover:text-red-400 hover:bg-red-500/5 transition-all"
                 >
@@ -30,25 +30,25 @@ const AdminLayout: React.FC = () => {
             <div className="flex min-h-[calc(100vh-68px)]">
                 {/* Sidebar */}
                 <aside className="w-[250px] bg-black/95 border-r border-white/5 py-8 flex flex-col gap-2 shrink-0">
-                    <NavLink 
-                        to="/admin/dashboard" 
-                        className={({ isActive }) => 
+                    <NavLink
+                        to="/admin/dashboard"
+                        className={({ isActive }) =>
                             `flex items-center px-8 py-3.5 text-sm font-medium transition-all ${isActive ? 'text-[#c8a55a] bg-[#c8a55a]/10 border-r-3 border-[#c8a55a]' : 'text-white/60 hover:text-white hover:bg-white/5'}`
                         }
                     >
                         Dashboard
                     </NavLink>
-                    <NavLink 
-                        to="/admin/contacted" 
-                        className={({ isActive }) => 
+                    <NavLink
+                        to="/admin/contacted"
+                        className={({ isActive }) =>
                             `flex items-center px-8 py-3.5 text-sm font-medium transition-all ${isActive ? 'text-[#c8a55a] bg-[#c8a55a]/10 border-r-3 border-[#c8a55a]' : 'text-white/60 hover:text-white hover:bg-white/5'}`
                         }
                     >
                         Contacted
                     </NavLink>
-                    <NavLink 
-                        to="/admin/tickets" 
-                        className={({ isActive }) => 
+                    <NavLink
+                        to="/admin/tickets"
+                        className={({ isActive }) =>
                             `flex items-center px-8 py-3.5 text-sm font-medium transition-all ${isActive ? 'text-[#c8a55a] bg-[#c8a55a]/10 border-r-3 border-[#c8a55a]' : 'text-white/60 hover:text-white hover:bg-white/5'}`
                         }
                     >
