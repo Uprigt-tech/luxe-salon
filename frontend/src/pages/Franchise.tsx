@@ -116,6 +116,75 @@ function FranchiseSection() {
   )
 }
 
+// Leadership Section
+function LeadershipSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.leader-card',
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      )
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
+  const leaders = [
+    {
+      name: 'Zawith Ahamed',
+      role: 'Founder',
+      icon: Award
+    },
+    {
+      name: 'Mohamed Niyazul Hassan',
+      role: 'Franchise Co-ordinator',
+      icon: Users
+    }
+  ]
+
+  return (
+    <section ref={sectionRef} className="py-24 bg-dark-light">
+      <div className="w-full px-6 lg:px-16">
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <div className="w-12 h-[1px] bg-gold" />
+            <span className="font-label text-[10px] tracking-[0.3em] text-gold">OUR LEADERSHIP</span>
+            <div className="w-12 h-[1px] bg-gold" />
+          </div>
+          <h2 className="font-display text-4xl text-white">The Minds Behind <span className="text-gradient-gold">Luxe</span></h2>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {leaders.map((leader, i) => (
+            <div key={i} className="leader-card glass-card rounded-2xl p-8 flex items-center gap-6 group hover:border-gold/30 transition-all duration-500">
+              <div className="w-16 h-16 rounded-full bg-gold/10 flex items-center justify-center group-hover:bg-gold/20 transition-colors">
+                <leader.icon className="w-8 h-8 text-gold" />
+              </div>
+              <div>
+                <p className="font-label text-[10px] tracking-[0.2em] text-gold mb-1 uppercase">{leader.role}</p>
+                <h3 className="font-display text-2xl text-white group-hover:text-gradient-gold transition-all">{leader.name}</h3>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // Franchise Page Component
 export default function Franchise() {
   useEffect(() => {
@@ -123,6 +192,9 @@ export default function Franchise() {
   }, [])
 
   return (
-    <FranchiseSection />
+    <>
+      <FranchiseSection />
+      <LeadershipSection />
+    </>
   )
 }

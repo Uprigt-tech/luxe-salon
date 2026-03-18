@@ -1,4 +1,4 @@
-import { Instagram, Linkedin, Youtube } from 'lucide-react'
+import { Instagram, Facebook, Youtube } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export default function Footer() {
@@ -11,7 +11,7 @@ export default function Footer() {
 
   const socialLinks = [
     { icon: Instagram, href: '#' },
-    { icon: Linkedin, href: '#' },
+    { icon: Facebook, href: '#' },
     { icon: Youtube, href: '#' },
   ]
 
@@ -23,9 +23,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center">
-                <span className="font-display text-dark text-lg font-bold">L</span>
-              </div>
+              <img src="/logo.png" alt="Luxe Men Salon" className="h-12 w-auto object-contain" />
               <span className="font-label text-sm tracking-[0.2em] text-white">LUXE MEN</span>
             </div>
             <p className="text-white/50 text-sm leading-relaxed mb-6">
@@ -63,22 +61,22 @@ export default function Footer() {
           <div>
             <h4 className="font-label text-[11px] tracking-[0.2em] text-gold mb-6">CONTACT</h4>
             <ul className="space-y-3">
-              <li className="text-white/50 text-sm">hello@luxemensalon.in</li>
-              <li className="text-white/50 text-sm">+91 98765 43210</li>
-              <li className="text-white/50 text-sm">Mumbai, India</li>
+              <li className="text-white/50 text-sm">luxemensalon60@gmail.com</li>
+              <li className="text-white/50 text-sm">+91 96264 58516</li>
+              <li className="text-white/50 text-sm">Periyakulam, Theni, India</li>
             </ul>
           </div>
 
           <div className="lg:col-span-2">
             <h4 className="font-label text-[11px] tracking-[0.2em] text-gold mb-6">LOCATION</h4>
             <div className="relative w-full h-[350px] rounded-xl overflow-hidden border border-gold/20 shadow-2xl group transition-all duration-500 hover:border-gold/40">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d981.9390911440594!2d77.545548!3d10.119018!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b076903f8e8fe2b%3A0x9666c7361ae99594!2sLuxe%20Men%20Salon!5e0!3m2!1sen!2sin!4v1773723960542!5m2!1sen!2sin" 
-                width="100%" 
-                height="100%" 
-                style={{ border: 0 }} 
-                allowFullScreen={true} 
-                loading="lazy" 
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d981.9390911440594!2d77.545548!3d10.119018!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b076903f8e8fe2b%3A0x9666c7361ae99594!2sLuxe%20Men%20Salon!5e0!3m2!1sen!2sin!4v1773723960542!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="w-full h-full"
               />

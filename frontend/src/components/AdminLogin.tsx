@@ -52,11 +52,12 @@ const AdminLogin: React.FC = () => {
 
             <div className="relative z-10 w-full max-w-[420px] px-6">
                 <div className="text-center mb-12">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#c8a55a] to-[#b8943f] flex items-center justify-center mx-auto mb-5 shadow-[0_8px_32px_rgba(200,165,90,0.2)]">
-                        <span className="font-display text-2xl font-bold text-[#0a0a0a]">L</span>
-                    </div>
-                    <div className="font-display text-[13px] tracking-[0.3em] text-white/50 uppercase">
+                    <img src="/logo.png" alt="Luxe Men Salon" className="h-20 w-auto mx-auto mb-4 object-contain" />
+                    <div className="font-display text-[14px] font-bold tracking-[0.3em] text-white uppercase mb-1">
                         Luxe Men Salon
+                    </div>
+                    <div className="font-display text-[10px] tracking-[0.2em] text-white/30 uppercase">
+                        Admin Access
                     </div>
                 </div>
 

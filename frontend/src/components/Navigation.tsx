@@ -34,9 +34,7 @@ export default function Navigation() {
       >
         <div className="w-full px-6 lg:px-16 flex items-center justify-between">
           <Link to="/" className="group flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center">
-              <span className="font-display text-dark text-lg font-bold">L</span>
-            </div>
+            <img src="/logo.png" alt="Luxe Men Salon" className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
             <span className="font-label text-sm tracking-[0.2em] text-white group-hover:text-gold transition-colors">
               LUXE MEN
             </span>

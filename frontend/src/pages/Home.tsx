@@ -128,7 +128,7 @@ function HeroSection() {
 
               <div ref={subtextRef}>
                 <p className="text-white/60 text-lg lg:text-xl max-w-lg mb-10 font-body leading-relaxed">
-                  For the modern gentleman. Precision cuts, beard craft, and franchise opportunities across India.
+                  Successfully operating 15+ franchises and continuously expanding across India.
                 </p>
               </div>
 

@@ -14,11 +14,9 @@ const AdminLayout: React.FC = () => {
             {/* Top Bar */}
             <header className="sticky top-0 z-50 flex items-center justify-between px-8 py-4 bg-black/85 backdrop-blur-xl border-b border-white/5">
                 <div className="flex items-center gap-3.5">
-                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#c8a55a] to-[#b8943f] flex items-center justify-center">
-                        <span className="font-display text-base font-bold text-[#0a0a0a]">L</span>
-                    </div>
+                    <img src="/logo.png" alt="Luxe Men Salon" className="h-9 w-auto object-contain" />
                     <span className="font-display text-sm font-medium text-white/70 tracking-wider">
-                        <strong className="text-white font-semibold">Luxe Men</strong> · Admin Dashboard
+                        <strong className="text-white font-semibold uppercase">Luxe Men</strong> · Admin
                     </span>
                 </div>
                 <button 
